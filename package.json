@@ -6,7 +6,8 @@
     "eslint": "^5.16.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "styled-components": "^4.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -28,8 +29,10 @@
   },
   "devDependencies": {
     "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.14.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.11.0",
     "husky": "^2.4.0",
     "lint-staged": "^8.2.0"
@@ -41,8 +44,16 @@
   },
   "lint-staged": {
     "*.js": [
+      "prettier --config .prettierrc --write",
       "eslint --fix",
       "git add"
     ]
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
+  "env": {
+    "browser": true,
+    "node": true
   }
 }

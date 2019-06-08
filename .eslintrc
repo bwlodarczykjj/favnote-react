@@ -1,22 +1,45 @@
 {
-   "extends": [
-      "airbnb",
-      "prettier",
-      "prettier/react"
-   ],
+   "extends": ["airbnb", "prettier", "prettier/react"],
    "rules": {
+      "env": {
+         "browser": true,
+         "node": true,
+         "jest": {
+            "testEnvironment": "jsdom"
+         }
+      },
+      "globals": {
+         "browser": true,
+         "node": true
+      },
       "max-len": ["off"],
       "indent": ["error", 4],
       "react/jsx-indent": ["error", 4],
       "react/jsx-indent-props": ["error", 4],
+      "import/no-unresolved": 1,
       "react/jsx-filename-extension": [
          1,
          {
-            "extensions": [
-               ".js"
-            ]
+            "extensions": [".js"]
+         },
+         {
+            "plugins": ["prettier"],
+            "rules": {
+               "prettier/prettier": "error"
+            }
          }
       ]
+   },
+   "settings": {
+      "import/resolver": {
+         "node": {
+            "extensions": [
+               ".js",
+               ".jsx",
+               ".ts",
+               ".tsx"
+            ]
+         }
+      }
    }
-
 }
