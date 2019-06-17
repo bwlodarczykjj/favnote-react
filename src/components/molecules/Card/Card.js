@@ -48,13 +48,14 @@ const StyledHeading = styled(Heading)`
 `;
 
 const StyledAvatar = styled.img`
-  width: 86px;
-  height: 86px;
-  border: 5px solid ${({ theme }) => theme.twitter};
+  width: 66px;
+  height: 66px;
+  border: 4px solid ${({ theme }) => theme.twitter};
   border-radius: 50px;
   position: absolute;
-  right: 20px;
-  top: 20px;
+  right: 10px;
+  top: 50px;
+  margin: 0 0 0 40px;
 `;
 
 const StyledLinkButton = styled.a`
@@ -64,41 +65,43 @@ const StyledLinkButton = styled.a`
   border-radius: 50px;
   background: white url(${LinkIcon}) no-repeat center;
   position: absolute;
-  right: 25px;
-  top: 50%;
+  right: -10px;
+  top: 56%;
   transform: translate(-50%, -50%);
 `;
 
-const Card = ({ cardType }) => (
+const Card = ({ cardType, title, created, twitterName, articleUrl, content }) => (
     <StyledWrapper>
         <InnerWrapper activeColor={cardType}>
-            <StyledHeading>Hello Bartek</StyledHeading>
-            <DateInfo>3 days</DateInfo>
-            {cardType === 'twitter' && (
-                <StyledAvatar
-                    src="https://avatars.io/instagram/wlodar420rrr
-"
-                />
-            )}
-            {cardType === 'article' && (
-                <StyledLinkButton href="https://www.linkedin.com/in/bart%C5%82omiej-w%C5%82odarczyk-a98888166/" />
-            )}
+            <StyledHeading>{title}</StyledHeading>
+            <DateInfo>{created}</DateInfo>
+            {cardType === 'twitter' && <StyledAvatar src={`https://avatars.io/twitter/${twitterName}`} />}
+            {cardType === 'article' && <StyledLinkButton href={articleUrl} />}
         </InnerWrapper>
         <InnerWrapper flex>
-            <Paragraph>Lorem lorem lorem loerm lorem lorem lorem lorem lomre</Paragraph>
+            <Paragraph>{content}</Paragraph>
             <Button secondary>REMOVE</Button>
         </InnerWrapper>
     </StyledWrapper>
 );
 
-/* Określam props, ktory przekazuje w komponencie Card i w tablicy przekazuje dostępne możliwości */
+/* Określam propsy, ktore przekazuje w komponencie Card. W tablicy przekazuje dostępne możliwości propsów cardType */
 
 Card.propTypes = {
     cardType: PropTypes.oneOf(['note', 'twitter', 'article']),
+    title: PropTypes.string.isRequired,
+    created: PropTypes.string.isRequired,
+    twitterName: PropTypes.string,
+    articleUrl: PropTypes.string,
+    content: PropTypes.string.isRequired,
 };
+
+/* Definiuję defaultowe propsy i co maja zawierać  */
 
 Card.defaultProps = {
     cardType: 'note',
+    twitterName: null,
+    articleUrl: null,
 };
 
 export default Card;
