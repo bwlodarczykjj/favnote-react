@@ -23,5 +23,3 @@ const Button = styled.button`
 `;
 
 export default Button;
-
-// background-color: ${({ color }) => color || 'hsl(49, 100%, 58%)'};

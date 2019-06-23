@@ -13,7 +13,7 @@ const twitters = [
     },
     {
         id: 2,
-        title: 'Redux guy',
+        title: 'Czy warto było szalec tak?',
         content:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
         created: '1 day',
@@ -21,7 +21,7 @@ const twitters = [
     },
     {
         id: 3,
-        title: 'React router stuff',
+        title: 'Afera z żydkami w tle',
         content:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
         created: '5 days',

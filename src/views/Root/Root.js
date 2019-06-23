@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import MainTemplate from 'templates/MainTemplate';
-import Notes from 'views/Notes';
-import Articles from 'views/Articles';
-import Twitters from 'views/Twitters';
-import DetailsPage from 'views/DetailsPage';
+import Notes from 'views/Root/Notes';
+import Articles from 'views/Root/Articles';
+import Twitters from 'views/Root/Twitters';
+import DetailsPage from 'views/Root/DetailsPage';
 import { routes } from 'routes';
 
 const Root = () => (

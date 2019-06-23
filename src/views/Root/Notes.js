@@ -5,7 +5,7 @@ import Card from 'components/molecules/Card/Card';
 const notes = [
     {
         id: 1,
-        title: 'Wake me up when Vue ends',
+        title: 'Dokąd nocą tupta jeż?',
         content:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
         created: '1 day',
@@ -19,7 +19,7 @@ const notes = [
     },
     {
         id: 3,
-        title: 'Du bist Reactish',
+        title: 'Du bist Reactish?',
         content:
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
         created: '5 days',

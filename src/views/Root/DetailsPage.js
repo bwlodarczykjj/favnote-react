@@ -1,15 +1,56 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { Component } from 'react';
 import DetailsTemplate from 'templates/DetailsTemplate';
 import { routes } from 'routes';
 
-const DetailsPage = ({ match }) => (
-    <DetailsTemplate>
-        <p> {`is twitter: ${match.path === routes.twitter}`}</p>
-        <p> {`is article: ${match.path === routes.article}`}</p>
-        <p> {`is note: ${match.path === routes.note}`}</p>
-    </DetailsTemplate>
-);
+class DetailsPage extends Component {
+  state = {
+      pageType: 'notes',
+  };
+
+  componentDidMount() {
+      const { match } = this.props;
+
+      switch (match.path) {
+      case routes.twitter:
+          this.setState({ pageType: 'twitters' });
+          break;
+      case routes.note:
+          this.setState({ pageType: 'notes' });
+          break;
+      case routes.article:
+          this.setState({ pageType: 'articles' });
+          break;
+      default:
+          console.log('Something went wrong with matching paths');
+      }
+  }
+
+  render() {
+      const dummyArticle = {
+          id: 1,
+          title: 'Przykładowa notatka statyczna, nie pobierana z nikąd',
+          content:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
+          twitterName: 'hello_roman',
+          articleUrl: 'https://youtube.com/helloroman',
+          created: '1 day',
+      };
+
+      const { pageType } = this.state;
+
+      return (
+          <DetailsTemplate
+              pageType={pageType}
+              title={dummyArticle.title}
+              created={dummyArticle.created}
+              content={dummyArticle.content}
+              articleUrl={dummyArticle.articleUrl}
+              twitterName={dummyArticle.twitterName}
+          />
+      );
+  }
+}
 
 export default DetailsPage;
 /* eslint-disable react/prop-types */
