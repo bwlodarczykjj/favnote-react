@@ -1,51 +1,56 @@
 import React from 'react';
-import UserPageTemplate from 'templates/UserPageTemplate';
+import GridTemplate from 'templates/GridTemplate';
 import Card from 'components/molecules/Card/Card';
 
 const twitters = [
     {
-        title: 'Czy React Cię szuka?',
+        id: 1,
+        title: 'Hello Roman',
         content:
-      'Lorem lorem lorem lorem lorem lorem lrem lorem lorem lorem leoro ae, aeroj aerk? Lorem',
-        twitterName: 'JakMarcin',
-        created: '10 days ago',
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
+        created: '1 day',
+        twitterName: 'hello_roman',
     },
     {
-        title: 'Trump, zniesie wizy?',
+        id: 2,
+        title: 'Redux guy',
         content:
-      'Lorem lorem lorem lorem lorem lorem lrem lorem lorem lorem leoro ae, aeroj aerk? Lorem',
-        twitterName: 'TomaszSiemoniak',
-        created: '5 days ago',
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
+        created: '1 day',
+        twitterName: 'dan_abramov',
     },
     {
-        title: 'Afera z żydkami w tle',
+        id: 3,
+        title: 'React router stuff',
         content:
-      'Lorem lorem lorem lorem lorem lorem lrem lorem lorem lorem leoro ae, aeroj aerk? Lorem',
-        twitterName: 'ARomasze',
-        created: '3 days ago',
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
+        created: '5 days',
+        twitterName: 'mjackson',
     },
     {
-        title: 'React Cię nie zawiedzie!',
+        id: 4,
+        title: 'Super animacje!',
         content:
-      'Lorem lorem lorem lorem lorem lorem lrem lorem lorem lorem leoro ae, aeroj aerk? Lorem',
-        twitterName: 'L_Rogowski',
-        created: '2 days ago',
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
+        created: '10 days',
+        twitterName: 'sarah_edo',
     },
 ];
 
 const Twitters = () => (
-    <UserPageTemplate pageType="twitter">
-        {twitters.map(item => (
+    <GridTemplate pageType="twitters">
+        {twitters.map(({ title, content, twitterName, created, id }) => (
             <Card
-                cardType="twitter"
-                title={item.title}
-                twitterName={item.twitterName}
-                content={item.content}
-                created={item.created}
-                key={item.title}
+                id={id}
+                cardType="twitters"
+                title={title}
+                content={content}
+                twitterName={twitterName}
+                created={created}
+                key={id}
             />
         ))}
-    </UserPageTemplate>
+    </GridTemplate>
 );
 
 export default Twitters;

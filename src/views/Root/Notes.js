@@ -1,51 +1,44 @@
 import React from 'react';
-import UserPageTemplate from 'templates/UserPageTemplate';
+import GridTemplate from 'templates/GridTemplate';
 import Card from 'components/molecules/Card/Card';
 
 const notes = [
     {
-        title: 'Dokąd nocą tupta jeż?',
+        id: 1,
+        title: 'Wake me up when Vue ends',
         content:
-      'Lorem lorem lorem lorem lorem lorem lrem lorem lorem lorem leoro ae, aeroj aerk? Lorem',
-        articleUrl: 'https://youtube.com',
-        created: '10 days ago',
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
+        created: '1 day',
     },
     {
-        title: 'Czy warto było szaleć tak?',
+        id: 2,
+        title: 'Como es An Gular?',
         content:
-      'Lorem lorem lorem lorem lorem lorem lrem lorem lorem lorem leoro ae, aeroj aerk? Lorem',
-        articleUrl: 'https://facebook.com',
-        created: '5 days ago',
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
+        created: '1 day',
     },
     {
-        title: 'Leć z fartem!',
+        id: 3,
+        title: 'Du bist Reactish',
         content:
-      'Lorem lorem lorem lorem lorem lorem lrem lorem lorem lorem leoro ae, aeroj aerk? Lorem',
-        articleUrl: 'https://twitter.com',
-        created: '23 days ago',
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
+        created: '5 days',
     },
     {
-        title: 'Kinley liderem wśród toników',
+        id: 4,
+        title: 'Reactuj się kto moze!',
         content:
-      'Lorem lorem lorem lorem lorem lorem lrem lorem lorem lorem leoro ae, aeroj aerk? Lorem',
-        articleUrl: 'https://twitch.com',
-        created: '18 days ago',
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
+        created: '10 days',
     },
 ];
 
 const Notes = () => (
-    <UserPageTemplate pageType="note">
-        {notes.map(item => (
-            <Card
-                cardType="note"
-                title={item.title}
-                content={item.content}
-                articleUrl={item.articleUrl}
-                created={item.created}
-                key={item.title}
-            />
+    <GridTemplate pageType="notes">
+        {notes.map(({ title, content, created, id }) => (
+            <Card id={id} cardType="notes" title={title} content={content} created={created} key={id} />
         ))}
-    </UserPageTemplate>
+    </GridTemplate>
 );
 
 export default Notes;
