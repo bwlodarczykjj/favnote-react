@@ -72,7 +72,11 @@ const DetailsTemplate = ({ pageType, created, articleUrl, twitterName, title, co
                 <StyledParagraph>{created}</StyledParagraph>
             </StyledPageHeader>
             <Paragraph>{content}</Paragraph>
-            {pageType === 'articles' && <StyledLink href={articleUrl}>Open article</StyledLink>}
+            {pageType === 'articles' && (
+                <StyledLink href={articleUrl} target="_blank">
+          Open article
+                </StyledLink>
+            )}
             {pageType === 'twitters' && (
                 <StyledImage alt={title} src={`https://avatars.io/twitter/${twitterName}`} />
             )}

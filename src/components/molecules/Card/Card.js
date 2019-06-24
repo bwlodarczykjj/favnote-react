@@ -94,7 +94,7 @@ class Card extends Component {
                   {cardType === 'twitters' && (
                       <StyledAvatar src={`https://avatars.io/twitter/${twitterName}`} />
                   )}
-                  {cardType === 'articles' && <StyledLinkButton href={articleUrl} />}
+                  {cardType === 'articles' && <StyledLinkButton href={articleUrl} target="_blank" />}
               </InnerWrapper>
               <InnerWrapper flex>
                   <Paragraph>{content}</Paragraph>
