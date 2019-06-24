@@ -21,7 +21,7 @@ const InnerWrapper = styled.div`
   position: relative;
   padding: 17px 30px;
 
-  /* Przekazujemy propsa activeColor w celu okreslenia jaki aktualnie kolor theme'u ma byc aktywny. W warunku określamy przy pomocy notacji, ktora wyciaga z obiektu dany kolor z listy kolorow: theme[activeColor] (primary, secondary, tartiary) */
+  /* Przekazujemy propsa activeColor w celu okreslenia jaki aktualnie kolor theme'u ma byc aktywny. W warunku określamy przy pomocy notacji, ktora wyciaga z obiektu dany kolor z listy kolorow: theme[activeColor] (primary, secondary, tertiary) */
 
   background-color: ${({ activeColor, theme }) => (activeColor ? theme[activeColor] : 'white')};
 
