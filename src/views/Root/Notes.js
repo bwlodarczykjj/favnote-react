@@ -23,7 +23,6 @@ Notes.propTypes = {
             id: PropTypes.number.isRequired,
             content: PropTypes.string.isRequired,
             title: PropTypes.string.isRequired,
-            cardType: PropTypes.string.isRequired,
             created: PropTypes.string.isRequired,
         }),
     ),

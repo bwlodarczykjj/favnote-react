@@ -11,6 +11,7 @@
          }
       },
       "globals": {
+         "window": true,
          "browser": true,
          "node": true
       },
