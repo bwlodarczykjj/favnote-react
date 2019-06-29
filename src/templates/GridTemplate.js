@@ -14,6 +14,10 @@ const StyledGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 45px;
+
+  @media (max-width: 1250px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const StyledPageHeader = styled.div`
