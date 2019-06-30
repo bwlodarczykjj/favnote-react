@@ -1,22 +1,57 @@
-import React from 'react';
-import { ThemeProvider } from 'styled-components';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
+import { ThemeProvider } from 'styled-components';
 import GlobalStyle from 'theme/GlobalStyle';
+import PageContext from 'context';
 import { theme } from 'theme/mainTheme';
 
-const MainTemplate = ({ children }) => (
-    <div>
-        <GlobalStyle />
-        <ThemeProvider theme={theme}>
-            <>{children}</>
-        </ThemeProvider>
-    </div>
-);
+class MainTemplate extends Component {
+  state = {
+    pageType: 'notes',
+  };
 
-/* Dodaje propType, który nazwyam element i dodaje do niego regule, ze musi byc wymagany, w tym przypadku children bedzei wymagane      */
+  componentDidMount() {
+    this.setCurrentPage();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    this.setCurrentPage(prevState);
+  }
+
+  setCurrentPage = (prevState = '') => {
+    const pageTypes = ['twitters', 'articles', 'notes'];
+    const {
+      location: { pathname },
+    } = this.props;
+
+    const [currentPage] = pageTypes.filter(page => pathname.includes(page));
+
+    if (prevState.pageType !== currentPage) {
+      this.setState({ pageType: currentPage });
+    }
+  };
+
+  render() {
+    const { children } = this.props;
+    const { pageType } = this.state;
+
+    return (
+      <div>
+        <PageContext.Provider value={pageType}>
+          <GlobalStyle />
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        </PageContext.Provider>
+      </div>
+    );
+  }
+}
 
 MainTemplate.propTypes = {
-    children: PropTypes.element.isRequired,
+  children: PropTypes.element.isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
-export default MainTemplate;
+export default withRouter(MainTemplate);

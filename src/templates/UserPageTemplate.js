@@ -3,22 +3,22 @@ import PropTypes from 'prop-types';
 import Sidebar from 'components/organisms/Sidebar/Sidebar';
 
 // eslint-disable-next-line react/prop-types
-const UserPageTemplate = ({ children, pageType }) => (
-    <>
-        <Sidebar pageType={pageType} />
-        {children}
-    </>
+const UserPageTemplate = ({ children }) => (
+  <>
+    <Sidebar />
+    {children}
+  </>
 );
 
 /* Definiuje propTypy w celu ochrony przed literowkami w przekazywanych propsach */
 
 UserPageTemplate.propType = {
-    children: PropTypes.array.isRequired,
-    pageType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+  children: PropTypes.array.isRequired,
+  pageContext: PropTypes.string.isRequired,
 };
 
 UserPageTemplate.defaultProps = {
-    pageType: 'notes',
+  pageContext: 'notes',
 };
 
 export default UserPageTemplate;

@@ -17,6 +17,12 @@ const StyledWrapper = styled.div`
   position: relative;
   display: grid;
   grid-template-rows: 0.45fr 1fr;
+  transition: 0.2s ease-in-out;
+
+  :hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 30px -10px hsla(0, 0%, 0%, 0.8);
+  }
 `;
 
 const InnerWrapper = styled.div`
@@ -32,7 +38,7 @@ const InnerWrapper = styled.div`
   }
 
   ${({ flex }) =>
-        flex &&
+    flex &&
     css`
       display: flex;
       flex-direction: column;
@@ -48,6 +54,7 @@ const DateInfo = styled(Paragraph)`
 
 const StyledHeading = styled(Heading)`
   margin: 5px 0 0;
+  cursor: pointer;
 `;
 
 const StyledAvatar = styled.img`
@@ -73,77 +80,90 @@ const StyledLinkButton = styled.a`
   transform: translate(-50%, -50%);
 `;
 
+const StyledButtonRemove = styled(Button)`
+  cursor: pointer;
+
+  :hover {
+    background-color: ${({ activeColor, theme }) =>
+      activeColor ? theme[activeColor] : theme.note};
+  }
+`;
+
 class Card extends Component {
   state = {
-      redirect: false,
+    redirect: false,
   };
 
   handleClick = () => this.setState({ redirect: true });
 
   render() {
-      const {
-          id,
-          cardType,
-          title,
-          created,
-          twitterName,
-          articleUrl,
-          content,
-          removeItem,
-      } = this.props;
+    const {
+      id,
+      cardType,
+      title,
+      created,
+      twitterName,
+      articleUrl,
+      content,
+      removeItem,
+    } = this.props;
 
-      const { redirect } = this.state;
+    const { redirect } = this.state;
 
-      if (redirect) {
-          return <Redirect to={`${cardType}/${id}`} />;
-      }
+    if (redirect) {
+      return <Redirect to={`${cardType}/${id}`} />;
+    }
 
-      return (
-          <StyledWrapper onClick={this.handleClick}>
-              <InnerWrapper activeColor={cardType}>
-                  <StyledHeading>{title}</StyledHeading>
-                  <DateInfo>{created}</DateInfo>
-                  {cardType === 'twitters' && (
-                      <StyledAvatar src={`https://avatars.io/twitter/${twitterName}`} />
-                  )}
-                  {cardType === 'articles' && <StyledLinkButton href={articleUrl} target="_blank" />}
-              </InnerWrapper>
-              <InnerWrapper flex>
-                  <Paragraph>{content}</Paragraph>
-                  <Button onClick={() => removeItem(cardType, id)} secondary>
+    return (
+      <StyledWrapper onClick={this.handleClick}>
+        <InnerWrapper activeColor={cardType}>
+          <StyledHeading>{title}</StyledHeading>
+          <DateInfo>{created}</DateInfo>
+          {cardType === 'twitters' && (
+            <StyledAvatar src={`https://avatars.io/twitter/${twitterName}`} />
+          )}
+          {cardType === 'articles' && <StyledLinkButton href={articleUrl} target="_blank" />}
+        </InnerWrapper>
+        <InnerWrapper flex>
+          <Paragraph>{content}</Paragraph>
+          <StyledButtonRemove
+            onClick={() => removeItem(cardType, id)}
+            secondary
+            activeColor={cardType}
+          >
             REMOVE
-                  </Button>
-              </InnerWrapper>
-          </StyledWrapper>
-      );
+          </StyledButtonRemove>
+        </InnerWrapper>
+      </StyledWrapper>
+    );
   }
 }
 
 /* Określam propsy, ktore przekazuje w komponencie Card. W tablicy przekazuje dostępne możliwości propsów cardType */
 
 Card.propTypes = {
-    id: PropTypes.number.isRequired,
-    cardType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
-    title: PropTypes.string.isRequired,
-    created: PropTypes.string.isRequired,
-    twitterName: PropTypes.string,
-    articleUrl: PropTypes.string,
-    content: PropTypes.string.isRequired,
-    removeItem: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+  cardType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+  title: PropTypes.string.isRequired,
+  created: PropTypes.string.isRequired,
+  twitterName: PropTypes.string,
+  articleUrl: PropTypes.string,
+  content: PropTypes.string.isRequired,
+  removeItem: PropTypes.func.isRequired,
 };
 /* Definiuję defaultowe propsy i co maja zawierać  */
 
 Card.defaultProps = {
-    cardType: 'notes',
-    twitterName: null,
-    articleUrl: null,
+  cardType: 'notes',
+  twitterName: null,
+  articleUrl: null,
 };
 
 const mapDispatchToProps = dispatch => ({
-    removeItemAction: (itemType, id) => dispatch(removeItemAction(itemType, id)),
+  removeItem: (itemType, id) => dispatch(removeItemAction(itemType, id)),
 });
 
 export default connect(
-    null,
-    mapDispatchToProps,
+  null,
+  mapDispatchToProps,
 )(Card);

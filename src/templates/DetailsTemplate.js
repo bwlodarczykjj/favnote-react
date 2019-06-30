@@ -59,53 +59,53 @@ const StyledButton = styled(Button)`
 
   /* Przekazujemy propsa activeColor w celu okreslenia jaki aktualnie kolor theme'u ma byc aktywny. W warunku określamy przy pomocy notacji, ktora wyciaga z obiektu dany kolor z listy kolorow: theme[activeColor] (primary, secondary, tertiary) */
   background-color: ${({ activeColor, theme }) =>
-        activeColor ? theme[activeColor] : theme.gray100};
+    activeColor ? theme[activeColor] : theme.gray100};
 
   text-decoration: none;
   color: black;
 `;
 
 // eslint-disable-next-line react/prop-types
-const DetailsTemplate = ({ pageType, created, articleUrl, twitterName, title, content }) => (
-    <UserPageTemplate pageType={pageType}>
-        <StyledWrapper>
-            <StyledPageHeader>
-                <StyledHeading big as="h1">
-                    {title}
-                </StyledHeading>
-                <StyledParagraph>{created}</StyledParagraph>
-            </StyledPageHeader>
-            <Paragraph>{content}</Paragraph>
-            {pageType === 'articles' && (
-                <StyledLink href={articleUrl} target="_blank">
+const DetailsTemplate = ({ pageContext, created, articleUrl, twitterName, title, content }) => (
+  <UserPageTemplate pageContext={pageContext}>
+    <StyledWrapper>
+      <StyledPageHeader>
+        <StyledHeading big as="h1">
+          {title}
+        </StyledHeading>
+        <StyledParagraph>{created}</StyledParagraph>
+      </StyledPageHeader>
+      <Paragraph>{content}</Paragraph>
+      {pageContext === 'articles' && (
+        <StyledLink href={articleUrl} target="_blank">
           Open article
-                </StyledLink>
-            )}
-            {pageType === 'twitters' && (
-                <StyledImage alt={title} src={`https://avatars.io/twitter/${twitterName}`} />
-            )}
-            <StyledButton as={Link} to={`/${pageType}`} activeColor={pageType}>
+        </StyledLink>
+      )}
+      {pageContext === 'twitters' && (
+        <StyledImage alt={title} src={`https://avatars.io/twitter/${twitterName}`} />
+      )}
+      <StyledButton as={Link} to={`/${pageContext}`} activeColor={pageContext}>
         Save / Close
-            </StyledButton>
-        </StyledWrapper>
-    </UserPageTemplate>
+      </StyledButton>
+    </StyledWrapper>
+  </UserPageTemplate>
 );
 
 DetailsTemplate.propTypes = {
-    pageType: PropTypes.string.isRequired,
-    title: PropTypes.string,
-    created: PropTypes.string,
-    content: PropTypes.string,
-    articleUrl: PropTypes.string,
-    twitterName: PropTypes.string,
+  pageContext: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  created: PropTypes.string,
+  content: PropTypes.string,
+  articleUrl: PropTypes.string,
+  twitterName: PropTypes.string,
 };
 
 DetailsTemplate.defaultProps = {
-    title: '',
-    created: '',
-    content: '',
-    articleUrl: '',
-    twitterName: '',
+  title: '',
+  created: '',
+  content: '',
+  articleUrl: '',
+  twitterName: '',
 };
 
 export default DetailsTemplate;
