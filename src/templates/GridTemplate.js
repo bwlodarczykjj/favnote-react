@@ -12,6 +12,7 @@ import withContext from 'hoc/withContext';
 
 const StyledWrapper = styled.div`
   padding: 25px 50px 25px 70px;
+  background-color: ${({ activeColor, theme }) => theme[activeColor]};
 `;
 
 const StyledGrid = styled.div`
