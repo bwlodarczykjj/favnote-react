@@ -7,6 +7,7 @@ import Heading from 'components/atoms/Heading/Heading';
 import withContext from 'hoc/withContext';
 import { connect } from 'react-redux';
 import { addItem as addItemAction } from 'actions';
+import { Formik, Form } from 'formik';
 
 const StyledWrapper = styled.div`
   border-left: 10px solid ${({ theme, activeColor }) => theme[activeColor]};
@@ -23,6 +24,11 @@ const StyledWrapper = styled.div`
   padding: 20px 50px;
   transform: translate(${({ isVisible }) => (isVisible ? '0' : '100%')});
   transition: 0.2s ease-in-out;
+`;
+
+const StyledForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
 `;
 
 const StyledTextArea = styled(Input)`
@@ -45,35 +51,72 @@ const StyledInput = styled(Input)`
 `;
 
 // eslint-disable-next-line react/prop-types
-const NewItemBar = ({ pageContext, isVisible, addItem }) => (
-  <div>
-    <StyledWrapper isVisible={isVisible} activeColor={pageContext}>
-      <Heading big>Create new {pageContext}</Heading>
-      <Input placeholder={pageContext === 'twitters' ? 'Account Name e.g dan_abramov' : 'title'} />
-      {pageContext === 'articles' && <StyledInput placeholder="link" />}
-      <StyledTextArea as="textarea" placeholder="content" />
-      <StyledButton
-        activeColor={pageContext}
-        onClick={() =>
-          addItem(pageContext, {
-            title: 'Pierwsza notatka dodawana dynamicznie z poziomu NewItemBar',
-            content:
-              'lorem lorem lorem asdh aushd asbd asgd asydgayosdg yoasdj hasodbashd bahsbd absdbasd oasbdhb ashod baohsbd hasb dhjabs dasjhkbd ahsdb ahsbdhjab sdhba usifh uierhgtnj sdhfb ladfhguib echbtv W EFBsdhv vadfv afb usdf',
-          })
-        }
-      >
-        Add note
-      </StyledButton>
-    </StyledWrapper>
-  </div>
+const NewItemBar = ({ pageContext, isVisible, addItem, handleClose }) => (
+  <StyledWrapper isVisible={isVisible} activeColor={pageContext}>
+    <Heading big>Create new {pageContext}</Heading>
+    <Formik
+      initialValues={{ title: '', content: '', articleUrl: '', twitterName: '', created: '' }}
+      onSubmit={values => {
+        addItem(pageContext, values);
+        handleClose();
+      }}
+    >
+      {({ values, handleChange, handleBlur }) => (
+        <StyledForm>
+          <StyledInput
+            type="text"
+            name="title"
+            placeholder="title"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.title}
+          />
+          {pageContext === 'twitters' && (
+            <StyledInput
+              placeholder="twitter name eg. hello_roman"
+              type="text"
+              name="twitterName"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.twitterName}
+            />
+          )}
+          {pageContext === 'articles' && (
+            <StyledInput
+              placeholder="link"
+              type="text"
+              name="articleUrl"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.articleUrl}
+            />
+          )}
+          <StyledTextArea
+            name="content"
+            as="textarea"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.content}
+          />
+          <StyledButton type="submit" activecolor={pageContext}>
+            Add Note
+          </StyledButton>
+        </StyledForm>
+      )}
+    </Formik>
+  </StyledWrapper>
 );
 
-NewItemBar.propType = {
+NewItemBar.propTypes = {
   pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+  isVisible: PropTypes.bool,
+  addItem: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
 };
 
 NewItemBar.defaultProps = {
   pageContext: 'notes',
+  isVisible: false,
 };
 
 const mapDispatchToProps = dispatch => ({

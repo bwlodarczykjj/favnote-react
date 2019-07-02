@@ -61,7 +61,7 @@ class GridTemplate extends Component {
   };
 
   // prevState tworzy nam bezpieczna kopie poprzedniego stanu, na ktorej mozemy wykonywac rozne akcje
-  handleNewItemBarToggle = () => {
+  toggleNewItemBar = () => {
     this.setState(prevState => ({ isNewItemBarVisible: !prevState.isNewItemBarVisible }));
   };
 
@@ -71,26 +71,24 @@ class GridTemplate extends Component {
     const { isNewItemBarVisible } = this.state;
 
     return (
-      <div>
-        <UserPageTemplate>
-          <StyledWrapper>
-            <StyledPageHeader>
-              <Input search placeholder="Search" />
-              <StyledHeading big as="h1">
-                {pageContext}
-              </StyledHeading>
-              <StyledParagraph>6 {pageContext}</StyledParagraph>
-            </StyledPageHeader>
-            <StyledGrid>{children}</StyledGrid>
-            <StyledButtonIcon
-              onClick={this.handleNewItemBarToggle}
-              activeColor={pageContext}
-              icon={plusIcon}
-            />
-            <NewItemBar isVisible={isNewItemBarVisible} />
-          </StyledWrapper>
-        </UserPageTemplate>
-      </div>
+      <UserPageTemplate>
+        <StyledWrapper>
+          <StyledPageHeader>
+            <Input search placeholder="Search" />
+            <StyledHeading big as="h1">
+              {pageContext}
+            </StyledHeading>
+            <StyledParagraph>6 {pageContext}</StyledParagraph>
+          </StyledPageHeader>
+          <StyledGrid>{children}</StyledGrid>
+          <StyledButtonIcon
+            onClick={this.toggleNewItemBar}
+            activeColor={pageContext}
+            icon={plusIcon}
+          />
+          <NewItemBar handleClose={this.toggleNewItemBar} isVisible={isNewItemBarVisible} />
+        </StyledWrapper>
+      </UserPageTemplate>
     );
   }
 }

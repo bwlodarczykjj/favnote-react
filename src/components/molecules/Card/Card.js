@@ -8,6 +8,7 @@ import Heading from 'components/atoms/Heading/Heading';
 import LinkIcon from 'assets/icons/link.svg';
 import { connect } from 'react-redux';
 import { removeItem as removeItemAction } from 'actions';
+import withContext from 'hoc/withContext';
 
 const StyledWrapper = styled.div`
   min-height: 380px;
@@ -31,7 +32,7 @@ const InnerWrapper = styled.div`
 
   /* Przekazujemy propsa activeColor w celu okreslenia jaki aktualnie kolor theme'u ma byc aktywny. W warunku określamy przy pomocy notacji, ktora wyciaga z obiektu dany kolor z listy kolorow: theme[activeColor] (primary, secondary, tertiary) */
 
-  background-color: ${({ activeColor, theme }) => (activeColor ? theme[activeColor] : 'white')};
+  background-color: ${({ activecolor, theme }) => (activecolor ? theme[activecolor] : 'white')};
 
   :first-of-type {
     z-index: 99;
@@ -84,8 +85,8 @@ const StyledButtonRemove = styled(Button)`
   cursor: pointer;
 
   :hover {
-    background-color: ${({ activeColor, theme }) =>
-      activeColor ? theme[activeColor] : theme.note};
+    background-color: ${({ activecolor, theme }) =>
+      activecolor ? theme[activecolor] : theme.note};
   }
 `;
 
@@ -99,7 +100,7 @@ class Card extends Component {
   render() {
     const {
       id,
-      cardType,
+      pageContext,
       title,
       created,
       twitterName,
@@ -111,25 +112,25 @@ class Card extends Component {
     const { redirect } = this.state;
 
     if (redirect) {
-      return <Redirect to={`${cardType}/${id}`} />;
+      return <Redirect to={`${pageContext}/details/${id}`} />;
     }
 
     return (
       <StyledWrapper onClick={this.handleClick}>
-        <InnerWrapper activeColor={cardType}>
+        <InnerWrapper activecolor={pageContext}>
           <StyledHeading>{title}</StyledHeading>
           <DateInfo>{created}</DateInfo>
-          {cardType === 'twitters' && (
+          {pageContext === 'twitters' && (
             <StyledAvatar src={`https://avatars.io/twitter/${twitterName}`} />
           )}
-          {cardType === 'articles' && <StyledLinkButton href={articleUrl} target="_blank" />}
+          {pageContext === 'articles' && <StyledLinkButton href={articleUrl} target="_blank" />}
         </InnerWrapper>
         <InnerWrapper flex>
           <Paragraph>{content}</Paragraph>
           <StyledButtonRemove
-            onClick={() => removeItem(cardType, id)}
+            onClick={() => removeItem(pageContext, id)}
             secondary
-            activeColor={cardType}
+            activecolor={pageContext}
           >
             REMOVE
           </StyledButtonRemove>
@@ -143,7 +144,7 @@ class Card extends Component {
 
 Card.propTypes = {
   id: PropTypes.number.isRequired,
-  cardType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+  pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
   title: PropTypes.string.isRequired,
   created: PropTypes.string.isRequired,
   twitterName: PropTypes.string,
@@ -154,7 +155,7 @@ Card.propTypes = {
 /* Definiuję defaultowe propsy i co maja zawierać  */
 
 Card.defaultProps = {
-  cardType: 'notes',
+  pageContext: 'notes',
   twitterName: null,
   articleUrl: null,
 };
@@ -166,4 +167,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps,
-)(Card);
+)(withContext(Card));
