@@ -8,7 +8,7 @@ import { theme } from 'theme/mainTheme';
 
 class MainTemplate extends Component {
   state = {
-    pageType: 'notes',
+    pageContext: 'notes',
   };
 
   componentDidMount() {
@@ -20,25 +20,25 @@ class MainTemplate extends Component {
   }
 
   setCurrentPage = (prevState = '') => {
-    const pageTypes = ['twitters', 'articles', 'notes'];
+    const pageContext = ['twitters', 'articles', 'notes'];
     const {
       location: { pathname },
     } = this.props;
 
-    const [currentPage] = pageTypes.filter(page => pathname.includes(page));
+    const [currentPage] = pageContext.filter(page => pathname.includes(page));
 
     if (prevState.pageType !== currentPage) {
-      this.setState({ pageType: currentPage });
+      this.setState({ pageContext: currentPage });
     }
   };
 
   render() {
     const { children } = this.props;
-    const { pageType } = this.state;
+    const { pageContext } = this.state;
 
     return (
       <div>
-        <PageContext.Provider value={pageType}>
+        <PageContext.Provider value={pageContext}>
           <GlobalStyle />
           <ThemeProvider theme={theme}>{children}</ThemeProvider>
         </PageContext.Provider>
