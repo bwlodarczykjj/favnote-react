@@ -15,13 +15,14 @@ export const addItem = (itemType, itemContent) => {
       .toString(36)
       .substr(2, 9)}`;
   };
-
   return {
     type: 'ADD_ITEM',
     payload: {
       itemType,
-      id: getId(),
-      itemContent,
+      item: {
+        id: getId(),
+        ...itemContent,
+      },
     },
   };
 };

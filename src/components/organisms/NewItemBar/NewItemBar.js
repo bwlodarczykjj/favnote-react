@@ -5,6 +5,8 @@ import Input from 'components/atoms/Input/Input';
 import Button from 'components/atoms/Button/Button';
 import Heading from 'components/atoms/Heading/Heading';
 import withContext from 'hoc/withContext';
+import { connect } from 'react-redux';
+import { addItem as addItemAction } from 'actions';
 
 const StyledWrapper = styled.div`
   border-left: 10px solid ${({ theme, activeColor }) => theme[activeColor]};
@@ -43,14 +45,25 @@ const StyledInput = styled(Input)`
 `;
 
 // eslint-disable-next-line react/prop-types
-const NewItemBar = ({ pageContext, isVisible }) => (
+const NewItemBar = ({ pageContext, isVisible, addItem }) => (
   <div>
     <StyledWrapper isVisible={isVisible} activeColor={pageContext}>
       <Heading big>Create new {pageContext}</Heading>
       <Input placeholder={pageContext === 'twitters' ? 'Account Name e.g dan_abramov' : 'title'} />
       {pageContext === 'articles' && <StyledInput placeholder="link" />}
       <StyledTextArea as="textarea" placeholder="content" />
-      <StyledButton activeColor={pageContext}>Add note</StyledButton>
+      <StyledButton
+        activeColor={pageContext}
+        onClick={() =>
+          addItem(pageContext, {
+            title: 'Pierwsza notatka dodawana dynamicznie z poziomu NewItemBar',
+            content:
+              'lorem lorem lorem asdh aushd asbd asgd asydgayosdg yoasdj hasodbashd bahsbd absdbasd oasbdhb ashod baohsbd hasb dhjabs dasjhkbd ahsdb ahsbdhjab sdhba usifh uierhgtnj sdhfb ladfhguib echbtv W EFBsdhv vadfv afb usdf',
+          })
+        }
+      >
+        Add note
+      </StyledButton>
     </StyledWrapper>
   </div>
 );
@@ -63,4 +76,11 @@ NewItemBar.defaultProps = {
   pageContext: 'notes',
 };
 
-export default withContext(NewItemBar);
+const mapDispatchToProps = dispatch => ({
+  addItem: (itemType, itemContent) => dispatch(addItemAction(itemType, itemContent)),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(withContext(NewItemBar));
