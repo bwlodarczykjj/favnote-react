@@ -21,6 +21,10 @@ const StyledGrid = styled.div`
   grid-gap: 45px;
 
   @media (max-width: 1250px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 950px) {
     grid-template-columns: repeat(1, 1fr);
   }
 `;
