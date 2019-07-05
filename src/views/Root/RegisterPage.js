@@ -1,17 +1,79 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Formik, Form, Field } from 'formik';
+import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+import AuthTemplate from 'templates/AuthTemplate';
+import Heading from 'components/atoms/Heading/Heading';
+import Button from 'components/atoms/Button/Button';
+import withContext from 'hoc/withContext';
+
+const StyledButton = styled(Button)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.notes};
+  margin-left: 40px;
+  margin-bottom: 20px;
+`;
+
+const StyledField = styled(Field)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 30px;
+  padding: 15px;
+  margin-bottom: 30px;
+  width: 300px;
+  background-color: ${({ theme }) => theme.grey100};
+  /* text-transform: uppercase; */
+`;
+
+const StyledLink = styled.a`
+  text-decoration: none;
+  font-weight: ${({ theme }) => theme.bold};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledHeading = styled(Heading)`
+  margin-bottom: 40px;
+`;
 
 const RegisterPage = () => (
-  <div>
-    <Formik initialValues={{ username: '', password: '' }} onSubmit={console.log('goodbye')}>
+  <AuthTemplate>
+    <StyledHeading>Create your account</StyledHeading>
+
+    {/* onSubmit przyjmuje values (tutaj, zeby skrocic zapis wykorzystujemy destrukturyzacje) i przekazujemy je w metodzie POST po przecinku jako/w obiekcie */}
+    <Formik
+      initialValues={{ username: '', password: '' }}
+      onSubmit={({ username, password }) => {
+        axios
+          .post('http://localhost:9000/api/user/register', {
+            username,
+            password,
+          })
+          .then(() => console.log('Login successful!'))
+          .catch(err => console.log('Login unseccessfull'`${err}`));
+      }}
+    >
       {() => (
         <Form>
-          <Field type="email" name="username" placeholder="Username" />
-          <Field type="password" name="password" placeholder="Password" />
-          <button type="submit">sign in</button>
+          <StyledField type="username" name="username" placeholder="Login" />
+          <StyledField type="password" name="password" placeholder="Password" />
+          <StyledButton type="submit">Create!</StyledButton>
+          <StyledLink as={NavLink} to="/login">
+            I want to log in!
+          </StyledLink>
         </Form>
       )}
     </Formik>
-  </div>
+  </AuthTemplate>
 );
-export default RegisterPage;
+
+export default withContext(RegisterPage);

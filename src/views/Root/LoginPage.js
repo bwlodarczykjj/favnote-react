@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Formik, Form, Field } from 'formik';
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import AuthTemplate from 'templates/AuthTemplate';
 import Heading from 'components/atoms/Heading/Heading';
@@ -66,7 +67,9 @@ const LoginPage = () => (
           <StyledField type="username" name="username" placeholder="Login" />
           <StyledField type="password" name="password" placeholder="Password" />
           <StyledButton type="submit">sign in</StyledButton>
-          <StyledLink href="">I want to go to register!</StyledLink>
+          <StyledLink as={NavLink} to="/register">
+            I want to register!
+          </StyledLink>
         </Form>
       )}
     </Formik>
