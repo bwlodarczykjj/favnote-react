@@ -24,7 +24,7 @@ const StyledGrid = styled.div`
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media (max-width: 950px) {
+  @media (max-width: 1050px) {
     grid-template-columns: repeat(1, 1fr);
   }
 `;
@@ -50,7 +50,7 @@ const StyledButtonIcon = styled(ButtonIcon)`
   bottom: 40px;
   right: 40px;
   border-radius: 50px;
-  background-color: ${({ activeColor, theme }) => theme[activeColor]};
+  background-color: ${({ activecolor, theme }) => theme[activecolor]};
   background-size: 35%;
   z-index: 99999;
 
@@ -87,7 +87,7 @@ class GridTemplate extends Component {
           <StyledGrid>{children}</StyledGrid>
           <StyledButtonIcon
             onClick={this.toggleNewItemBar}
-            activeColor={pageContext}
+            activecolor={pageContext}
             icon={plusIcon}
           />
           <NewItemBar handleClose={this.toggleNewItemBar} isVisible={isNewItemBarVisible} />

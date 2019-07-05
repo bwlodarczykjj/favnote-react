@@ -41,14 +41,16 @@ class DetailsPage extends Component {
     const { pageContext } = this.state;
 
     return (
-      <DetailsTemplate
-        pageContext={pageContext}
-        title={dummyArticle.title}
-        created={dummyArticle.created}
-        content={dummyArticle.content}
-        articleUrl={dummyArticle.articleUrl}
-        twitterName={dummyArticle.twitterName}
-      />
+      <>
+        <DetailsTemplate
+          pageContext={pageContext}
+          title={dummyArticle.title}
+          created={dummyArticle.created}
+          content={dummyArticle.content}
+          articleUrl={dummyArticle.articleUrl}
+          twitterName={dummyArticle.twitterName}
+        />
+      </>
     );
   }
 }
