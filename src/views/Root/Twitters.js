@@ -1,23 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import GridTemplate from 'templates/GridTemplate';
 import Card from 'components/molecules/Card/Card';
+import { fetchItems } from 'actions';
 
-const Twitters = ({ twitters }) => (
-  <GridTemplate>
-    {twitters.map(({ title, content, twitterName, created, id }) => (
-      <Card
-        id={id}
-        title={title}
-        content={content}
-        twitterName={twitterName}
-        created={created}
-        key={id}
-      />
-    ))}
-  </GridTemplate>
-);
+class Twitters extends Component {
+  componentDidMount() {
+    const { fetchTwitters } = this.props;
+    fetchTwitters();
+  }
+
+  render() {
+    const { twitters } = this.props;
+    return (
+      <GridTemplate>
+        {twitters.map(({ title, content, twitterName, created, id }) => (
+          <Card
+            id={id}
+            title={title}
+            content={content}
+            twitterName={twitterName}
+            created={created}
+            key={id}
+          />
+        ))}
+      </GridTemplate>
+    );
+  }
+}
 
 Twitters.propTypes = {
   twitters: PropTypes.arrayOf(
@@ -35,9 +46,17 @@ Twitters.defaultProps = {
   twitters: [],
 };
 
+const mapDispatchToProps = dispatch => ({
+  fetchTwitters: () => dispatch(fetchItems('twitters')),
+});
+
 const mapStateToProps = state => {
   const { twitters } = state;
   return { twitters };
 };
 
-export default connect(mapStateToProps)(Twitters);
+// mapStateToProps MUSI BYĆ ZAWSZE PIERWSZE!!!
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Twitters);
