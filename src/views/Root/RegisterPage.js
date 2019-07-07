@@ -2,11 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Formik, Form, Field } from 'formik';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
 import AuthTemplate from 'templates/AuthTemplate';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
-import withContext from 'hoc/withContext';
 
 const StyledButton = styled(Button)`
   display: flex;
@@ -49,18 +47,10 @@ const RegisterPage = () => (
   <AuthTemplate>
     <StyledHeading>Create your account</StyledHeading>
 
-    {/* onSubmit przyjmuje values (tutaj, zeby skrocic zapis wykorzystujemy destrukturyzacje) i przekazujemy je w metodzie POST po przecinku jako/w obiekcie */}
+    {/* onSubmit przyjmuje values (tutaj, zeby skrocic zapis wykorzystujemy destrukturyzacje) i przekazujemy je w metodzie HTTP --> POST po przecinku jako/w obiekcie */}
     <Formik
       initialValues={{ username: '', password: '' }}
-      onSubmit={({ username, password }) => {
-        axios
-          .post('http://localhost:9000/api/user/register', {
-            username,
-            password,
-          })
-          .then(() => console.log('Login successful!'))
-          .catch(err => console.log('Login unseccessfull'`${err}`));
-      }}
+      // onSubmit={({ username, password }) => {}}
     >
       {() => (
         <Form>
@@ -76,4 +66,4 @@ const RegisterPage = () => (
   </AuthTemplate>
 );
 
-export default withContext(RegisterPage);
+export default RegisterPage;

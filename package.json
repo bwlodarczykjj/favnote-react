@@ -48,6 +48,7 @@
     "lint-staged": "^8.2.0",
     "react-redux": "^7.1.0",
     "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "storybook-react-router": "^1.0.5"
   },
   "husky": {
@@ -66,6 +67,7 @@
     "testEnvironment": "jsdom"
   },
   "env": {
+    "window": true,
     "browser": true,
     "node": true
   }

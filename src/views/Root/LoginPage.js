@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { Formik, Form, Field } from 'formik';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
 import AuthTemplate from 'templates/AuthTemplate';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
-import withContext from 'hoc/withContext';
+import { connect } from 'react-redux';
+import { authenticate as authenticateAction } from 'actions';
 
 const StyledButton = styled(Button)`
   display: flex;
@@ -29,7 +29,6 @@ const StyledField = styled(Field)`
   margin-bottom: 30px;
   width: 300px;
   background-color: ${({ theme }) => theme.grey100};
-  /* text-transform: uppercase; */
 `;
 
 const StyledLink = styled.a`
@@ -45,21 +44,15 @@ const StyledHeading = styled(Heading)`
   margin-bottom: 40px;
 `;
 
-const LoginPage = () => (
+const LoginPage = ({ authenticate }) => (
   <AuthTemplate>
     <StyledHeading>Sign In</StyledHeading>
 
-    {/* onSubmit przyjmuje values (tutaj, zeby skrocic zapis wykorzystujemy destrukturyzacje) i przekazujemy je w metodzie POST po przecinku jako/w obiekcie */}
+    {/* onSubmit przyjmuje values (tutaj, zeby skrocic zapis wykorzystujemy destrukturyzacje) i przekazujemy je w metodzie HTTP --> POST po przecinku jako/w obiekcie */}
     <Formik
       initialValues={{ username: '', password: '' }}
       onSubmit={({ username, password }) => {
-        axios
-          .post('http://localhost:9000/api/user/login', {
-            username,
-            password,
-          })
-          .then(() => console.log('Login successful!'))
-          .catch(err => console.log('Login unseccessfull'`${err}`));
+        authenticate(username, password);
       }}
     >
       {() => (
@@ -76,4 +69,11 @@ const LoginPage = () => (
   </AuthTemplate>
 );
 
-export default withContext(LoginPage);
+const mapDispatchToProps = dispatch => ({
+  authenticate: (username, password) => dispatch(authenticateAction(username, password)),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(LoginPage);

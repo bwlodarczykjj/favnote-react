@@ -3,7 +3,9 @@
    "parser": "babel-eslint",
    "rules": {
       "env": {
-         "react/forbid-prop-types": 0,
+         "react/prop-types": 0,
+         "document": true,
+         "window": true,
          "browser": true,
          "node": true,
          "jest": {
@@ -11,6 +13,8 @@
          }
       },
       "globals": {
+         "document": true,
+         "react/prop-types": 0,
          "window": true,
          "browser": true,
          "node": true
@@ -19,6 +23,7 @@
       "indent": 0,
       "react/jsx-indent": 0,
       "react/jsx-indent-props": 0,
+      "react/prop-types": 0,
       "import/no-unresolved": 0,
       "import/prefer-default-export": 0,
       "import/no-extraneous-dependencies": 0,
