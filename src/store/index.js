@@ -5,6 +5,7 @@ import rootReducer from 'reducers';
 /* eslint-disable no-underscore-dangle */
 /* eslint no-undef: 0 */
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 /* eslint-enable */
 export default store;

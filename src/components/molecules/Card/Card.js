@@ -47,12 +47,6 @@ const InnerWrapper = styled.div`
     `}
 `;
 
-const DateInfo = styled(Paragraph)`
-  margin: 0 0 5px;
-  font-weight: ${({ theme }) => theme.regular};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-`;
-
 const StyledHeading = styled(Heading)`
   margin: 5px 0 0;
   cursor: pointer;
@@ -98,16 +92,7 @@ class Card extends Component {
   handleClick = () => this.setState({ redirect: true });
 
   render() {
-    const {
-      id,
-      pageContext,
-      title,
-      created,
-      twitterName,
-      articleUrl,
-      content,
-      removeItem,
-    } = this.props;
+    const { id, pageContext, title, twitterName, articleUrl, content, removeItem } = this.props;
 
     const { redirect } = this.state;
 
@@ -119,7 +104,6 @@ class Card extends Component {
       <StyledWrapper onClick={this.handleClick}>
         <InnerWrapper activecolor={pageContext}>
           <StyledHeading>{title}</StyledHeading>
-          <DateInfo>{created}</DateInfo>
           {pageContext === 'twitters' && (
             <StyledAvatar src={`https://avatars.io/twitter/${twitterName}`} />
           )}
@@ -130,7 +114,7 @@ class Card extends Component {
           <StyledButtonRemove
             onClick={() => removeItem(pageContext, id)}
             secondary
-            activecolor={pageContext}
+            // activecolor={pageContext}
           >
             REMOVE
           </StyledButtonRemove>
@@ -143,14 +127,12 @@ class Card extends Component {
 /* Określam propsy, ktore przekazuje w komponencie Card. W tablicy przekazuje dostępne możliwości propsów cardType */
 
 Card.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
   title: PropTypes.string.isRequired,
-  created: PropTypes.string.isRequired,
   twitterName: PropTypes.string,
   articleUrl: PropTypes.string,
-  content: PropTypes.string.isRequired,
-  removeItem: PropTypes.func.isRequired,
+  // removeItem: PropTypes.func.isRequired,
 };
 /* Definiuję defaultowe propsy i co maja zawierać  */
 

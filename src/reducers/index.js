@@ -1,22 +1,27 @@
 import {
-  // REMOVE_ITEM_REQUEST,
+  ADD_ITEM_SUCCESS,
   REMOVE_ITEM_SUCCESS,
-  ADD_ITEM,
-  // AUTH_REQUEST,
   AUTH_SUCCESS,
-  // AUTH_FAILURE,
-  // FETCH_REQUEST,
+  FETCH_REQUEST,
   FETCH_SUCCESS,
-  // FETCH_FAILURE,
 } from 'actions';
 
-const initialState = {};
+const initialState = {
+  // userID: '5ca8f00a097c3394e62f64ab',
+  isLoading: false,
+};
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case FETCH_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
     case FETCH_SUCCESS:
       return {
         ...state,
+        isLoading: false,
         [action.payload.itemType]: [...action.payload.data],
       };
     case AUTH_SUCCESS:
@@ -25,18 +30,20 @@ const rootReducer = (state = initialState, action) => {
         // eslint-disable-next-line no-underscore-dangle
         userID: action.payload.data._id,
       };
-    case ADD_ITEM:
+    case ADD_ITEM_SUCCESS:
       return {
         ...state,
-        // Tworze dynamiczny klucz, ktory pozwala nam na dodanie go do nowej tablicy
-        [action.payload.itemType]: [...state[action.payload.itemType], action.payload.item],
+        [action.payload.itemType]: [action.payload.data],
       };
     case REMOVE_ITEM_SUCCESS:
       return {
         ...state,
         [action.payload.itemType]: [
-          // eslint-disable-next-line no-underscore-dangle
-          ...state[action.payload.itemType].filter(item => item._id !== action.payload.id),
+          ...state[action.payload.itemType].filter(
+            item =>
+              // eslint-disable-next-line no-underscore-dangle
+              item._id !== action.payload.id,
+          ),
         ],
       };
     default:

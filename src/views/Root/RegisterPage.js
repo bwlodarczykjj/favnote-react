@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Formik, Form, Field } from 'formik';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AuthTemplate from 'templates/AuthTemplate';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
@@ -14,6 +14,10 @@ const StyledButton = styled(Button)`
   background-color: ${({ theme }) => theme.notes};
   margin-left: 40px;
   margin-bottom: 20px;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const StyledField = styled(Field)`
@@ -57,7 +61,7 @@ const RegisterPage = () => (
           <StyledField type="username" name="username" placeholder="Login" />
           <StyledField type="password" name="password" placeholder="Password" />
           <StyledButton type="submit">Create!</StyledButton>
-          <StyledLink as={NavLink} to="/login">
+          <StyledLink as={Link} to="/login">
             I want to log in!
           </StyledLink>
         </Form>

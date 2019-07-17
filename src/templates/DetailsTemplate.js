@@ -59,8 +59,8 @@ const StyledButton = styled(Button)`
   padding: 20px 80px;
 
   /* Przekazujemy propsa activeColor w celu okreslenia jaki aktualnie kolor theme'u ma byc aktywny. W warunku określamy przy pomocy notacji, ktora wyciaga z obiektu dany kolor z listy kolorow: theme[activeColor] (primary, secondary, tertiary) */
-  background-color: ${({ activeColor, theme }) =>
-    activeColor ? theme[activeColor] : theme.gray100};
+  background-color: ${({ activecolor, theme }) =>
+    activecolor ? theme[activecolor] : theme.gray100};
 
   text-decoration: none;
   color: black;
@@ -85,7 +85,7 @@ const DetailsTemplate = ({ pageContext, created, articleUrl, twitterName, title,
       {pageContext === 'twitters' && (
         <StyledImage alt={title} src={`https://avatars.io/twitter/${twitterName}`} />
       )}
-      <StyledButton as={Link} to={`/${pageContext}`} activeColor={pageContext}>
+      <StyledButton as={Link} to={`/${pageContext}`} activecolor={pageContext}>
         Save / Close
       </StyledButton>
     </StyledWrapper>

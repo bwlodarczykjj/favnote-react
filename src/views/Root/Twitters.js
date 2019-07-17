@@ -13,16 +13,17 @@ class Twitters extends Component {
 
   render() {
     const { twitters } = this.props;
+
     return (
       <GridTemplate>
-        {twitters.map(({ title, content, twitterName, created, id }) => (
+        {twitters.map(({ title, content, twitterName, created, _id: id }) => (
           <Card
             id={id}
             title={title}
             content={content}
             twitterName={twitterName}
-            created={created}
             key={id}
+            created={created}
           />
         ))}
       </GridTemplate>
@@ -33,11 +34,10 @@ class Twitters extends Component {
 Twitters.propTypes = {
   twitters: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      _id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,
       twitterName: PropTypes.string.isRequired,
-      created: PropTypes.string.isRequired,
     }),
   ),
 };
@@ -46,14 +46,14 @@ Twitters.defaultProps = {
   twitters: [],
 };
 
-const mapDispatchToProps = dispatch => ({
-  fetchTwitters: () => dispatch(fetchItems('twitters')),
-});
-
 const mapStateToProps = state => {
   const { twitters } = state;
   return { twitters };
 };
+
+const mapDispatchToProps = dispatch => ({
+  fetchTwitters: () => dispatch(fetchItems('twitters')),
+});
 
 // mapStateToProps MUSI BYĆ ZAWSZE PIERWSZE!!!
 export default connect(

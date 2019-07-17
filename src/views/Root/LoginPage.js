@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Formik, Form, Field } from 'formik';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import AuthTemplate from 'templates/AuthTemplate';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
@@ -17,6 +17,10 @@ const StyledButton = styled(Button)`
   background-color: ${({ theme }) => theme.notes};
   margin-left: 40px;
   margin-bottom: 20px;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const StyledField = styled(Field)`
@@ -39,6 +43,10 @@ const StyledLink = styled.a`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const StyledHeading = styled(Heading)`
@@ -77,10 +85,12 @@ const LoginPage = ({ userID, authenticate }) => (
                 placeholder="Password"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.password}
+                value={values.title}
               />
-              <StyledButton type="submit">sign in</StyledButton>
-              <StyledLink as={NavLink} to="/register">
+              <StyledButton activecolor="notes" type="submit">
+                sign in
+              </StyledButton>
+              <StyledLink as={Link} to={routes.register}>
                 I want to register!
               </StyledLink>
             </Form>
