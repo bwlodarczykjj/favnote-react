@@ -9,6 +9,7 @@ import penIcon from 'assets/icons/pen.svg';
 import twitterIcon from 'assets/icons/twitter.svg';
 import logoIcon from 'assets/icons/logo.svg';
 import withContext from 'hoc/withContext';
+import { removeState } from 'store';
 
 const StyledWrapper = styled.nav`
   position: fixed;
@@ -60,7 +61,7 @@ const Sidebar = ({ pageContext }) => (
         <ButtonIcon as={NavLink} to="/articles" icon={bulbIcon} activeclass="active" />
       </li>
     </StyledLinksList>
-    <StyledLogoutButton as={NavLink} to="/login" icon={logoutIcon} />
+    <StyledLogoutButton as={NavLink} to="/login" icon={logoutIcon} onClick={removeState} />
   </StyledWrapper>
 );
 

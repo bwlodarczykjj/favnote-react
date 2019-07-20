@@ -14,10 +14,10 @@
       },
       "globals": {
          "document": true,
-         "react/prop-types": 0,
          "window": true,
          "browser": true,
-         "node": true
+         "node": true,
+         "localStorage": true,
       },
       "max-len": ["off"],
       "indent": 0,
