@@ -6,10 +6,10 @@ import {
   FETCH_SUCCESS,
 } from 'actions';
 
-const initialState = {
-  // userID: '5ca8f00a097c3394e62f64ab',
+export const initialState = () => ({
+  userID: null,
   isLoading: false,
-};
+});
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {

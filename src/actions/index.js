@@ -1,12 +1,8 @@
 import axios from 'axios';
 
-export const ADD_ITEM_REQUEST = 'ADD_ITEM_REQUEST';
 export const ADD_ITEM_SUCCESS = 'ADD_ITEM_SUCCESS';
-export const ADD_ITEM_FAILURE = 'ADD_ITEM_FAILURE';
 
-export const REMOVE_ITEM_REQUEST = 'REMOVE_ITEM_REQUEST';
 export const REMOVE_ITEM_SUCCESS = 'REMOVE_ITEM_SUCCESS';
-export const REMOVE_ITEM_FAILURE = 'REMOVE_ITEM_FAILURE';
 
 export const AUTH_REQUEST = 'AUTH_REQUEST';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
@@ -63,29 +59,17 @@ export const fetchItems = itemType => (dispatch, getState) => {
     });
 };
 
-export const removeItem = (itemType, id) => dispatch => {
-  dispatch({ type: REMOVE_ITEM_REQUEST });
-
-  axios
-    .delete(`http://localhost:9000/api/note/${id}`)
-    .then(() => {
-      dispatch({
-        type: REMOVE_ITEM_SUCCESS,
-        payload: {
-          itemType,
-          id,
-        },
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      dispatch({ type: REMOVE_ITEM_FAILURE });
-    });
+export const removeItem = (itemType, id) => {
+  return {
+    type: REMOVE_ITEM_SUCCESS,
+    payload: {
+      itemType,
+      id,
+    },
+  };
 };
 
 export const addItem = (itemType, itemContent) => (dispatch, getState) => {
-  dispatch({ type: ADD_ITEM_REQUEST });
-
   return axios
     .post('http://localhost:9000/api/note', {
       userID: getState().userID,
@@ -103,6 +87,5 @@ export const addItem = (itemType, itemContent) => (dispatch, getState) => {
     })
     .catch(err => {
       console.log(err);
-      dispatch({ type: ADD_ITEM_FAILURE });
     });
 };
