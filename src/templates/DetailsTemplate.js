@@ -30,11 +30,6 @@ const StyledHeading = styled(Heading)`
   }
 `;
 
-const StyledParagraph = styled(Paragraph)`
-  margin: 0;
-  font-weight: ${({ theme }) => theme.normal};
-`;
-
 const StyledLink = styled.a`
   display: block;
   font-weight: ${({ theme }) => theme.bold};
@@ -67,14 +62,13 @@ const StyledButton = styled(Button)`
 `;
 
 // eslint-disable-next-line react/prop-types
-const DetailsTemplate = ({ pageContext, created, articleUrl, twitterName, title, content }) => (
-  <UserPageTemplate pageContext={pageContext}>
+const DetailsTemplate = ({ pageContext, articleUrl, twitterName, title, content }) => (
+  <UserPageTemplate>
     <StyledWrapper>
       <StyledPageHeader>
         <StyledHeading big as="h1">
           {title}
         </StyledHeading>
-        <StyledParagraph>{created}</StyledParagraph>
       </StyledPageHeader>
       <Paragraph>{content}</Paragraph>
       {pageContext === 'articles' && (
@@ -95,7 +89,6 @@ const DetailsTemplate = ({ pageContext, created, articleUrl, twitterName, title,
 DetailsTemplate.propTypes = {
   pageContext: PropTypes.oneOf(['notes', 'articles', 'twitters']).isRequired,
   title: PropTypes.string,
-  created: PropTypes.string,
   content: PropTypes.string,
   articleUrl: PropTypes.string,
   twitterName: PropTypes.string,
@@ -103,7 +96,6 @@ DetailsTemplate.propTypes = {
 
 DetailsTemplate.defaultProps = {
   title: '',
-  created: '',
   content: '',
   articleUrl: '',
   twitterName: '',

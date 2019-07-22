@@ -8,20 +8,17 @@ import {
 
 export const initialState = () => ({
   userID: null,
-  isLoading: false,
 });
 
-const rootReducer = (state = initialState, action) => {
+export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_REQUEST:
       return {
         ...state,
-        isLoading: true,
       };
     case FETCH_SUCCESS:
       return {
         ...state,
-        isLoading: false,
         [action.payload.itemType]: [...action.payload.data],
       };
     case AUTH_SUCCESS:
