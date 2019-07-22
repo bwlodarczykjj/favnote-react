@@ -111,11 +111,7 @@ class Card extends Component {
         </InnerWrapper>
         <InnerWrapper flex>
           <Paragraph>{content}</Paragraph>
-          <StyledButtonRemove
-            onClick={() => removeItem(pageContext, id)}
-            secondary
-            // activecolor={pageContext}
-          >
+          <StyledButtonRemove onClick={() => removeItem(pageContext, id)} secondary>
             REMOVE
           </StyledButtonRemove>
         </InnerWrapper>
@@ -132,7 +128,6 @@ Card.propTypes = {
   title: PropTypes.string.isRequired,
   twitterName: PropTypes.string,
   articleUrl: PropTypes.string,
-  // removeItem: PropTypes.func.isRequired,
 };
 /* Definiuję defaultowe propsy i co maja zawierać  */
 

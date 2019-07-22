@@ -64,7 +64,7 @@ class GridTemplate extends Component {
     isNewItemBarVisible: false,
   };
 
-  // prevState tworzy nam bezpieczna kopie poprzedniego stanu, na ktorej mozemy wykonywac rozne akcje
+  // prevState tworzy nam bezpieczna kopie POPRZEDNIEGO stanu, na ktorej mozemy wykonywac rozne akcje. Mówimy tu: weź poprzedni state i go odwróć
   toggleNewItemBar = () => {
     this.setState(prevState => ({ isNewItemBarVisible: !prevState.isNewItemBarVisible }));
   };

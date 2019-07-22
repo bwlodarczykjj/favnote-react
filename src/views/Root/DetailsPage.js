@@ -45,6 +45,9 @@ class DetailsPage extends Component {
   }
 }
 
+/* ownProps to nic innego jak powiedzenie, ze bede pracowal teraz na swoich, zdeklarowanych wczenisj ew tym komponencie proppsach. 
+state[ownProps.pageContext] to aktywny klucz, ktory bedzie sie za kazdym razem dopasowaywal do pageContext i go podmieniał. Dzięki metodzie filter() porownujemy, czy id aktualnie aktywnego itemu jest takie samo jak id z URL/ PATHa, jesli jest takie samo to wyswietlamy wsystko z danego elementu(notatki) */
+
 const mapStateToProps = (state, ownProps) => {
   if (state[ownProps.pageContext]) {
     return {
